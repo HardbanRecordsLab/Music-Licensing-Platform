@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.env
+.env.local
+.env.*.local
+deploy/.env
+deploy/*.env
+deploy/backups/
+deploy/wp-app/
+deploy/wp-content/uploads/
+*.log
+*.local
+.vscode/
+coverage/

@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "buildCommand": "npm run build:frontend",
+  "outputDirectory": "dist/client",
+  "env": {
+    "NODE_ENV": "production",
+    "VITE_API_URL": "https://hrl-sync-hub.hardbanrecordslab.online"
+  },
+  "routes": [
+    {
+      "src": "/index.html",
+      "status": 200
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/index.html",
+      "status": 200
+    }
+  ]
+}
