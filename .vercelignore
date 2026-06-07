@@ -1,0 +1,14 @@
+# Ignore backend and other non-frontend files for Vercel deployments
+backend/
+deploy/
+wp-app/
+wp-content/
+tests/
+Dockerfile
+DOKUMENTACJA_SYSTEMU.md
+DEPLOYMENT.md
+metadata.json
+README.md
+*.log
+node_modules/
+.git/
