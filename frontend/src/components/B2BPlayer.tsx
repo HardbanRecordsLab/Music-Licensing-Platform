@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Playlist, Track, TimeOfDay } from "../types.js";
-import { getApiUrl, getWsUrl } from "../utils.js";
+import { Playlist, Track, TimeOfDay } from "../types";
+import { getApiUrl, getWsUrl } from "../utils";
 import { 
   Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, Shuffle, RotateCcw, 
   Maximize2, Minimize2, Check, Music, Sliders, AlertTriangle, Clock, Calendar, 
@@ -8,7 +8,6 @@ import {
   Plus, Search, Sparkles, CheckCircle, Save, HelpCircle, X, Terminal,
   Minus, GripVertical, RefreshCw, Home, ChevronRight, ListMusic
 } from "lucide-react";
-import cmlpLogo from "../assets/images/cmlp_logo_1779372728753.png";
 
 interface B2BPlayerProps {
   currentUserId: string;
@@ -946,9 +945,9 @@ export function B2BPlayer({ currentUserId, authToken, playlists: initialPlaylist
             {/* Branding, Status oraz Ścieżka (Breadcrumbs) */}
             <div className="flex items-center gap-3.5">
               <div 
-                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md transition-all duration-300 select-none overflow-hidden"
+                className="w-12 h-12 rounded-xl flex items-center justify-center shadow-md transition-all duration-300 select-none overflow-hidden bg-[#0f172a]"
               >
-                <img src={cmlpLogo} alt="CMLP Logo" className="w-full h-full object-cover" />
+                <Music className="w-7 h-7 text-[#38bdf8]" />
               </div>
               <div className="space-y-1.5 text-left w-full overflow-hidden">
                 {/* Zintegrowana Ścieżka Okruszkowa (Breadcrumbs) jako Panel Nawigacji */}
@@ -2318,7 +2317,7 @@ export function B2BPlayer({ currentUserId, authToken, playlists: initialPlaylist
 
                   {/* Watermark Logo */}
                   <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none">
-                    <img src={cmlpLogo} alt="CMLP Logo watermark" className="w-64 h-64 opacity-[0.05] filter brightness-0 invert" />
+                    <Music className="w-64 h-64 text-[#38bdf8] opacity-[0.05]" />
                   </div>
 
                   <div className="space-y-6 text-center z-10">

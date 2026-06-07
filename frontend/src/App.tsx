@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
-import { UserProfile, Playlist } from "./types.js";
-import { AdminDashboard } from "./components/AdminDashboard.js";
-import { B2BPlayer } from "./components/B2BPlayer.js";
-import { WhiteLabelPlayer } from "./components/WhiteLabelPlayer.js";
-import { getApiUrl } from "./utils.js";
+import { UserProfile, Playlist } from "./types";
+import { AdminDashboard } from "./components/AdminDashboard";
+import { B2BPlayer } from "./components/B2BPlayer";
+import { WhiteLabelPlayer } from "./components/WhiteLabelPlayer";
+import { getApiUrl } from "./utils";
 import { Shield, Disc, LogIn, LogOut } from "lucide-react";
 
 const demoAccounts = [

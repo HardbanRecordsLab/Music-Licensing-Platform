@@ -1,4 +1,4 @@
-import { Invoice } from "../types.js";
+import { Invoice } from "../types";
 import { X, Printer, Download, CheckCircle } from "lucide-react";
 
 interface InvoiceModalProps {

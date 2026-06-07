@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
-import { AccessPage, Track, Playlist } from "../types.js";
-import { getApiUrl, getWsUrl } from "../utils.js";
+import { AccessPage, Track, Playlist } from "../types";
+import { getApiUrl, getWsUrl } from "../utils";
 import { 
   Play, Pause, SkipForward, SkipBack, Volume2, VolumeX, 
   Lock, Globe, Info, Music, Disc, RefreshCw, Send, AlertTriangle, MessageSquare, CheckCircle2

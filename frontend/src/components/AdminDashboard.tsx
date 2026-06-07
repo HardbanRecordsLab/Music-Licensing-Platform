@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Track, Playlist, Invoice, UserProfile, TimeOfDay } from "../types.js";
-import { getApiUrl, getWsUrl } from "../utils.js";
+import { Track, Playlist, Invoice, UserProfile, TimeOfDay } from "../types";
+import { getApiUrl, getWsUrl } from "../utils";
 import { 
   Music, Play, FileText, ShieldAlert, Database, Plus, Edit2, Trash2, 
   RefreshCw, TrendingUp, Users, DollarSign, Disc, Clock, Check, AlertOctagon, 
@@ -9,7 +9,7 @@ import {
   ChevronRight, Home, Search, X
 } from "lucide-react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
-import { InvoiceModal } from "./InvoiceModal.js";
+import { InvoiceModal } from "./InvoiceModal";
 
 interface AdminDashboardProps {
   currentUserId: string;
