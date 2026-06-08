@@ -443,13 +443,22 @@ async function startServer() {
     res.setHeader("Referrer-Policy", "strict-origin-when-cross-origin");
     res.setHeader("Content-Security-Policy", "default-src 'self' https: data: 'unsafe-inline' 'unsafe-eval' wss: ws:; img-src 'self' https: data:; media-src 'self' https: data: blob:;");
 
-    // CORS - Bezpieczna kontrola pochodzenia, blokowanie nieautoryzowanych domen zapytań z zewnątrz
+    // CORS - Biała lista dozwolonych origines (APP_ORIGIN z env + localhost dev)
     const origin = req.headers.origin;
-    if (origin) {
+    const allowedOrigins = new Set<string>(
+      [
+        env.APP_ORIGIN,
+        "http://localhost:5173",
+        "http://localhost:3000",
+      ].filter(Boolean)
+    );
+    if (origin && allowedOrigins.has(origin)) {
       res.setHeader("Access-Control-Allow-Origin", origin);
       res.setHeader("Access-Control-Allow-Credentials", "true");
       res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
       res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With, X-WP-Nonce");
+    } else if (!origin) {
+      // Same-origin lub curl/Postman — przepuść
     }
 
     if (req.method === 'OPTIONS') {

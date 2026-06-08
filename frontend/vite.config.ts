@@ -4,6 +4,8 @@ import path from 'path';
 
 export default defineConfig({
   root: path.resolve(__dirname),
+  // Load .env files from project root (where .env.local lives)
+  envDir: path.resolve(__dirname, '..'),
   plugins: [react()],
   resolve: {
     alias: {

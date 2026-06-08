@@ -1,20 +1,26 @@
 {
-  "version": 3,
+  "version": 2,
   "buildCommand": "npm run build:frontend",
   "outputDirectory": "dist/client",
-  "env": {
-    "NODE_ENV": "production",
-    "VITE_API_URL": "https://hrl-sync-hub.hardbanrecordslab.online"
+  "framework": null,
+  "build": {
+    "env": {
+      "VITE_API_URL": "https://hrl-sync-hub.hardbanrecordslab.online",
+      "NODE_ENV": "production"
+    }
   },
   "routes": [
     {
-      "src": "/index.html",
-      "status": 200
+      "src": "/assets/(.*)",
+      "dest": "/assets/$1"
+    },
+    {
+      "src": "/(.*\\.(js|css|ico|png|svg|jpg|jpeg|gif|webp|woff|woff2|ttf|eot))",
+      "dest": "/$1"
     },
     {
       "src": "/(.*)",
-      "dest": "/index.html",
-      "status": 200
+      "dest": "/index.html"
     }
   ]
 }

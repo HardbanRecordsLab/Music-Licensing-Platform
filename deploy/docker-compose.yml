@@ -8,7 +8,7 @@ services:
       - "80:80"
       - "443:443"
     volumes:
-      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - /var/www/streaming:/var/www/streaming:ro
       - /var/www/panel.hrl/wordpress:/var/www/wordpress:ro
     depends_on:
@@ -54,6 +54,7 @@ services:
       JWT_SECRET: ${JWT_SECRET:-hrl_core_jwt_sec_9088421}
       HMAC_SECRET: ${HMAC_SECRET:-replace-with-long-hmac-secret}
       HEADLESS_SECRET: ${HEADLESS_SECRET:-replace-with-long-random-secret}
+      APP_ORIGIN: ${APP_ORIGIN:-https://app.hrl-sync-hub.hardbanrecordslab.online}
       PORT: ${PORT:-9108}
       NODE_ENV: production
     depends_on:
