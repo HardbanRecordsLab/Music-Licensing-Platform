@@ -2,7 +2,7 @@
   "version": 2,
   "installCommand": "npm install",
   "buildCommand": "npm run build:frontend",
-  "outputDirectory": "frontend/dist",
+    "outputDirectory": "dist",
   "build": {
     "env": {
       "VITE_API_URL": "https://hrl-sync-hub.hardbanrecordslab.online",
