@@ -1,27 +1,48 @@
-param(
-    [string]$ComposeFile = "deploy/docker-compose.yml"
-)
+# ============================================================
+# HRL Backend — Deploy via SSH from Windows
+# Usage: .\deploy\deploy-backend.ps1
+# Requires: SSH key at C:\Users\HRL\.ssh\id_ed25519
+# ============================================================
 
-Set-StrictMode -Version Latest
-$root = Split-Path -Parent $MyInvocation.MyCommand.Path
-Set-Location $root\.. 
+$VPS_HOST = "84.247.162.167"
+$VPS_USER = "root"
+$SSH_KEY  = "C:\Users\HRL\.ssh\id_ed25519"
+$REPO_DIR = "/var/www/Music-Licensing-Platform"
 
-if (-not (Get-Command npm -ErrorAction SilentlyContinue)) {
-    Write-Error "npm is not installed or not available in PATH."
-    exit 1
-}
-if (-not (Get-Command docker -ErrorAction SilentlyContinue)) {
-    Write-Error "Docker is not installed or not available in PATH."
-    exit 1
-}
+Write-Host "======================================"
+Write-Host "  HRL Backend Deploy to VPS"
+Write-Host "  Host: $VPS_HOST"
+Write-Host "======================================"
 
-Write-Host "Installing dependencies..."
-npm install
+# Build the remote command
+$remote_cmd = @"
+set -e
+cd $REPO_DIR
 
-Write-Host "Building backend only..."
-npm run build:backend
+# Pull latest
+git pull origin main
 
-Write-Host "Starting backend services..."
-docker compose -f $ComposeFile up -d --build node-express-api cache-redis db-mysql
+# Check .env
+if [ ! -f deploy/.env ]; then
+  echo 'ERROR: deploy/.env missing on VPS. Create it first:'
+  echo '  cp deploy/.env.example deploy/.env && nano deploy/.env'
+  exit 1
+fi
 
-Write-Host "Backend deployment completed. Use 'docker compose -f $ComposeFile ps' to inspect running containers."
+# Build and start
+cd deploy
+docker compose --env-file .env up -d --build node-express-api cache-redis
+
+# Wait for health
+echo 'Waiting for health check...'
+sleep 8
+wget -qO- http://localhost:9108/api/health && echo 'OK: Backend healthy' || echo 'WARNING: Health check failed - check logs'
+
+docker compose --env-file .env ps
+"@
+
+# Run on VPS
+ssh -i $SSH_KEY -o StrictHostKeyChecking=no "${VPS_USER}@${VPS_HOST}" $remote_cmd
+
+Write-Host ""
+Write-Host "Done. Check: https://hrl-sync-hub.hardbanrecordslab.online/api/health"
