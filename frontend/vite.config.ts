@@ -1,27 +1,32 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
-import path from 'path';
+import { fileURLToPath } from 'node:url';
+import { dirname, resolve } from 'node:path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 export default defineConfig({
-  root: path.resolve(__dirname),
+  root: __dirname,
   // Load .env files from project root (where .env.local lives)
-  envDir: path.resolve(__dirname, '..'),
+  envDir: resolve(__dirname, '..'),
   plugins: [react()],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': resolve(__dirname, 'src')
     }
   },
   server: {
     fs: {
-      allow: [path.resolve(__dirname, '..')]
+      allow: [resolve(__dirname, '..')]
     }
   },
   build: {
-    outDir: 'dist',
+    // Absolute path → always frontend/dist/ regardless of CWD
+    outDir: resolve(__dirname, 'dist'),
     emptyOutDir: true,
     rollupOptions: {
-      input: path.resolve(__dirname, 'index.html')
+      input: resolve(__dirname, 'index.html')
     }
   }
 });
